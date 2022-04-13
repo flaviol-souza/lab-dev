@@ -10,7 +10,7 @@ public class Imdb {
         AnoLancamento = ano;
     }
     public int Id {get; set;}
-    public String Titulo {get; set;}    
+    public String? Titulo {get; set;}    
     public int AnoLancamento {get; set;}
     public double Nota {get; set;}
 
