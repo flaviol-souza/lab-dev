@@ -4,59 +4,83 @@ using methods.Model;
 namespace methods.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/imdbs")]
 public class ImdbController : ControllerBase
 {
     private static int countId = 1;
     private static List<Imdb> movies = new List<Imdb>();
 
     [HttpGet]
-    public String Get(){
-        return "Olá Mundo";
+    public ActionResult<List<Imdb>> GetAll(int limit, bool top){
+        if(movies == null || !movies.Any()){
+            return StatusCode(200, "Não existem filmes cadastrados");
+        }
+        var getMovies = movies;
+        if(top){
+           getMovies = getMovies.OrderBy(m => m.Nota).ToList(); 
+        }
+        if(limit > 0){
+            getMovies = getMovies.Take(limit).ToList();
+        }
+        return Ok(getMovies);        
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<Imdb> GetImdb(int id){
+        Imdb imdb;
+        try
+        {
+            imdb = getImdbById(id);
+        }
+        catch (System.Exception)
+        {
+            return StatusCode(500, "A plataforma não esta preparada para essa chamada!");
+        }
+        if(imdb == null){
+            return NotFound("IMDB não existe!"); // Retorna Http Status 404 
+        }
+        return Ok(imdb);
     }
 
     [HttpDelete("{id}")]
-    public bool DeleteImdb(int id){
-        Imdb aux = null;
+    public ActionResult<bool> DeleteImdb(int id){
+        Imdb imdb = getImdbById(id);
         foreach(Imdb i in movies){
             if(i.Id == id){
-                aux = i;
+                imdb = i;
                 break;
             }
         }
-        if(aux != null){
-            movies.Remove(aux);
+        if(imdb != null){
+            movies.Remove(imdb);
             return true;
         }
         return false;
     }
 
     [HttpPost]
-    public bool CreateImdb(Imdb imdb){
-        imdb.Id = countId++;
-        imdb.Nota = 0;
-        movies.Add(imdb);
-        return true;
-    }
-
-    [HttpGet("{id}")]
-    public Imdb GetImdb(int id){
-        return getImdbById(id);
-    }
-
-    [HttpGet("top")]
-    public List<Imdb> GetAll(){
-        if(!movies.Any()){
-            movies.Add(initImdb());
+    public ActionResult<bool> CreateImdb(Imdb imdb){
+        if(imdb == null){
+            return StatusCode(204, "Valores inválidos!");
+        } else if(imdb.Titulo == null || imdb.Titulo == "" || imdb.AnoLancamento < 1800){
+            return StatusCode(204, "É necessário informar Titulo e Ano de Lançamento do Filme.");
         }
-        return movies;
+
+        imdb.Id = countId++;
+        movies.Add(imdb);
+        return Ok(true);
     }
 
     [HttpPut("{id}")]
-    public bool updateImdb(int id, Imdb imdb){
+    public ActionResult<bool> updateImdb(int id, Imdb imdb){
         Imdb imdbOld = getImdbById(id);
         if(imdbOld == null){
-            return false;
+            return StatusCode(404, "Filme não encontrado");
+        }
+        if(imdb == null){
+            return StatusCode(204, "Parâmetro inválido.");
+        } else if(imdb.Titulo == null || imdb.Titulo == "" || imdb.AnoLancamento < 1800){
+            return StatusCode(204, "É necessário informar Titulo e Ano de Lançamento do Filme.");
         }
         if(imdb.AnoLancamento > 0){
             imdbOld.AnoLancamento = imdb.AnoLancamento;
@@ -64,19 +88,20 @@ public class ImdbController : ControllerBase
         if(imdb.Titulo != null){
             imdbOld.Titulo = imdb.Titulo;
         }
-        return true;
+        return Ok(true);
     }
     
-    [HttpPatch("{id}/{nota}")]
-    public bool voteImdb(int id, double nota){
+    [HttpPatch("{id}/voto/{nota}")]
+    public ActionResult<bool> voteImdb(int id, double nota){
         Imdb imdb = getImdbById(id);
-        imdb.Nota = nota;
-        return true;
-    }
-     public Imdb initImdb(){
-        Imdb imdb = new Imdb(countId++,  "The Batman", 2022);
-        imdb.Nota = 8.4;
-        return imdb;
+        if(imdb == null){
+            return StatusCode(404, "Filme não encontrado");
+        }
+        if(nota < 0 || nota > 10){
+            return StatusCode(400, "A nota é inválida.");
+        }
+        imdb.Notas.Add(nota);
+        return Ok(true);
     }
 
     private Imdb getImdbById(int id){
