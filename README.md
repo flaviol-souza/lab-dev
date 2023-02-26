@@ -13,4 +13,4 @@ Para a execução das implementações utilize:
 
 ## Implementações Lab. Dev.
 * Aula 1: Revisão de HTML, CSS e JS.
-
+* Aula 2: Hello World Flask
