@@ -1,50 +1,50 @@
 from flask import Flask, request
-
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/index')
 def index():
-    return 'Index Page'
+    return 'Index'
 
-@app.route('/hello')
-def hello():
-    return 'Hello World'
-
-@app.route('/home/')
+@app.route('/home')
 def home():
     return 'Home'
 
 @app.route('/home/subpath')
 def subPath():
-    return 'Sub Path Home'
+    return 'Sub-Path'
 
-@app.route('/login')
-def login():
-    page = request.args.get('page', default = 1, type = int)
-    return str(page)
+@app.route('/user/<name>')
+def helloUser(name):
+    return 'Hello %s.' % name
 
-@app.route('/user/<username>')
-def show_user_profile(username):
-    # show the user profile for that user
-    return 'User %s' % username
+@app.route('/uid/<int:uid>')
+def uid(uid):
+    return str(uid)
 
-@app.route('/post/<int:post_id>')
-def show_post(post_id):
-    return 'Post %d' % post_id
+@app.route('/dic/<newpath>/<int:uid>')
+def dic(newpath, uid):
+    return newpath + str(uid)
+
+@app.route('/cal')
+def cal():
+    var1 = request.args.get('var1', default=0, type=int)
+    var2 = request.args.get('var2', default=0, type=int)
+    r = var1 + var2
+    return str(r)
 
 @app.route('/<name>')
-def register(name):
+def fullName(name):
     option = ''
     lastname = request.args.get('lastname', default='')
-    old = request.args.get('old', default=-1, type=int)
     if(lastname):
-        option = f'Sobrenome: {lastname}'
+        option = f' Sobrenome: {lastname}'
 
-    if(old >= 0):
+    old = request.args.get('old', default=-1, type=int)
+    if(old > 0):
         option += f' Idade: {old}'
-    
-    return f'Nome: {name} {option}' 
+
+    return f'Nome: {name} {option}'
+
 
 if __name__ == '__main__':
-    app.run()
-    #app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True)
