@@ -9,8 +9,18 @@
 ## Build With
 Para a execução das implementações utilize: 
 * seu IDE de preferência (sugestão VS Code)
+* Python 3 (3.8.8 versão mínima)
+```bash
+pip install Flask
+```
 
+## Run the project
+Ao executar o script o servidor iniciara e informará a porta na qual a aplicação esta disponível.
+```bash
+python <SCRIPT PY>
+```
 
-## Implementações Lab. Dev.
+## Implementations Lab. Dev.
 * Aula 1: Revisão de HTML, CSS e JS.
-* Aula 2: Hello World Flask
+* Aula 2: Hello World Flask e URL
+* Aula 3: Revisão dos Métodos HTTP
