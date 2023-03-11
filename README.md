@@ -17,10 +17,11 @@ pip install Flask
 ## Run the project
 Ao executar o script o servidor iniciara e informará a porta na qual a aplicação esta disponível.
 ```bash
-python <SCRIPT PY>
+python <YOUR_SCRIPT_PY>
 ```
 
 ## Implementations Lab. Dev.
 * Aula 1: Revisão de HTML, CSS e JS.
 * Aula 2: Hello World Flask e URL
 * Aula 3: Revisão dos Métodos HTTP
+* Aula 4: CRUD Restful
