@@ -20,6 +20,11 @@ def _findMovie(movies, id):
 def getMovies():
     return _toJsonFromMovies(_movies_db)
 
+@app.route('/movies/<int:id>', methods=['GET'])
+def getMovie(id):
+    movie = _findMovie(_movies_db, id)
+    return movie.toJson()
+
 @app.route('/movies/save', methods=['POST'])
 def addMovie():
     body = request.get_json()
@@ -37,6 +42,20 @@ def updateMovie(id):
     
     return "Filme atualiado com sucesso!"
 
+@app.route('/movies/<int:id>', methods=['DELETE'])
+def deleteMovie(id):
+    movie = _findMovie(_movies_db, id)
+    idx = _movies_db.index(movie)
+    del _movies_db[idx]
+ 
+    return "Filme removido com sucesso!" 
+
+@app.route('/movies/<int:id>/rating/<float:rating>', methods=['PATCH'])
+def ratingMovie(id, rating):
+    movie = _findMovie(_movies_db, id)
+    movie.voteRaing(rating)
+ 
+    return "Filme votado com sucesso!" 
+
 if __name__ == '__main__':
     app.run(debug=True)
-

@@ -10,7 +10,16 @@ class Movie():
         self.actors = []
         self.year = 0
         self.gender = ''
-        self.rating = 0
+        self.rating = []
+
+    def voteRaing(self, vote):
+        self.rating.append(vote)
+
+    def ratingMean(self):
+        ratingMean = 0
+        if len(self.rating) > 0:
+            ratingMean = sum(self.rating) / len(self.rating)
+        return ratingMean
 
     def fromJson(self, json):
         self.title = json['title']
@@ -19,7 +28,8 @@ class Movie():
         self.actors = json['actors']
         self.year = json['year']
         self.gender = json['gender']
-        self.rating = json['rating']
 
     def toJson(self):
-        return self.__dict__
+        json = self.__dict__.copy()
+        json["rating"] = self.ratingMean()
+        return json

@@ -25,3 +25,4 @@ python <YOUR_SCRIPT_PY>
 * Aula 2: Hello World Flask e URL
 * Aula 3: Revisão dos Métodos HTTP
 * Aula 4: CRUD Restful
+* Aula 5: Tratamento de erros e status HTTP
