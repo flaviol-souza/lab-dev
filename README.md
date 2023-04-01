@@ -26,3 +26,4 @@ python <YOUR_SCRIPT_PY>
 * Aula 3: Revisão dos Métodos HTTP
 * Aula 4: CRUD Restful
 * Aula 5: Tratamento de erros e status HTTP
+* Aula 6: Upload e Download de arquivos
