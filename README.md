@@ -12,6 +12,15 @@ Para a execução das implementações utilize:
 * Python 3 (3.8.8 versão mínima)
 ```bash
 pip install Flask
+pip install psycopg2
+pip install sqlalchemy
+pip install python-dotenv
+```
+
+Se for utilizar Docker:
+```bash
+docker pull postgres:14.2
+docker run -itd -e POSTGRES_USER=root -e POSTGRES_PASSWORD=ifsp -e POSTGRES_DB=<NAME_DB> -p 5432:5432 -v data:/var/lib/postgresql/data --name postgres_aula_8 postgres:14.2
 ```
 
 ## Run the project
@@ -27,3 +36,5 @@ python <YOUR_SCRIPT_PY>
 * Aula 4: CRUD Restful
 * Aula 5: Tratamento de erros e status HTTP
 * Aula 6: Upload e Download de arquivos
+* Aula 7: Refactoring service
+* Aula 8: Conexão e Persistências de dados (Postgres)
