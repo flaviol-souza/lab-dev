@@ -3,6 +3,12 @@ from services.rating_service import RatingService
 
 __rating_service = RatingService()
 
+def ratingsByMovie(id):
+    if id < 1:
+        abort(403, "Invalid identifer")
+
+    return __rating_service.getByMovie(id)
+
 def voteMovie(id, rating):
     if id < 1:
         abort(403, "Invalid identifer")

@@ -8,10 +8,12 @@ app.add_url_rule('/movies/<int:id>', methods=['GET'], view_func=movies_endpoint.
 app.add_url_rule('/movies', methods=['GET'], view_func=movies_endpoint.getMovies)
 app.add_url_rule('/movies/<int:id>/cover', methods=['GET'], view_func=movies_endpoint.downloadCover)
 app.add_url_rule('/movies/<int:id>/cover', methods=['POST'], view_func=movies_endpoint.uploadCover)
-app.add_url_rule('/movies/save', methods=['POST'], view_func=movies_endpoint.addMovie)
+app.add_url_rule('/movies', methods=['POST'], view_func=movies_endpoint.addMovie)
 app.add_url_rule('/movies/<int:id>', methods=['PUT'], view_func=movies_endpoint.updateMovie)
-app.add_url_rule('/movies/<int:id>/rating/<float:rating>', methods=['PATCH'], view_func=rating_endpoint.voteMovie)
 app.add_url_rule('/movies/<int:id>', methods=['DELETE'], view_func=movies_endpoint.deleteMovie)
+
+app.add_url_rule('/movies/<int:id>/rating', methods=['GET'], view_func=rating_endpoint.ratingsByMovie)
+app.add_url_rule('/movies/<int:id>/rating/<float:rating>', methods=['PATCH'], view_func=rating_endpoint.voteMovie)
 
 @app.errorhandler(400)
 def _bad_request(e):

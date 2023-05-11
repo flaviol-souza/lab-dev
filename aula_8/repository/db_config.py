@@ -17,7 +17,7 @@ class DBConfig:
     
     def create_connection(self):
         #Connection String DB
-        db_string = "postgresql://postgres:root@127.0.0.1:5432/postgres"
+        db_string = "postgresql://root:ifsp@127.0.0.1:5432/aula_8"
         conn = create_engine(db_string)
 
         Base.metadata.create_all(conn.engine)

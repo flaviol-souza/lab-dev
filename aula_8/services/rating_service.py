@@ -8,6 +8,18 @@ class RatingService():
         self.__movie_repository = MovieRepository()
         self.__rating_repository = RatingRepository()
 
+    def getByMovie(self, id):
+        votes = []
+        movie = self.__movie_repository.find(id)
+        
+        if movie is None:
+            raise IndexError("movie not found")
+        
+        for rating in movie.rating:
+            votes.append(rating.vote)
+
+        return votes 
+    
     def vote_rating(self, id, rating):
         movie = self.__movie_repository.find(id)
         if movie is None:

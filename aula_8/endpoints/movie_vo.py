@@ -58,7 +58,8 @@ class MovieVO():
         vo.year = dto.year
         vo.gender = dto.gender
 
-        vo.rating = 0.0
+        if dto.rating and len(dto.rating) > 0:
+            vo.rating = sum(r.vote for r in dto.rating if r)/len(dto.rating)
 
         return vo
 

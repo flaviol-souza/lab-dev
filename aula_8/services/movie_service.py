@@ -4,7 +4,7 @@ from repository.movie_respository import MovieRepository
 import os
 
 class MovieService():
-    STORAGE_PATH = 'C:\\Users\\svcj238521\\workspace\\lab-dev\\aula_3\\tmp\\cover'
+    STORAGE_PATH = 'C:\\workspace\\ifsp\\lab-dev\\tmp\\cover'
 
     __movie_repository = MovieRepository()
     _movies_db = []
@@ -37,7 +37,7 @@ class MovieService():
                     return os.path.join(path, filename)
         raise FileNotFoundError('File not found')
     
-    def save_file(self, file):
+    def save_file(self, file, id):
         blob = file.read()
         filename = str(id) + '.' + file.filename.split('.')[-1]
         file_image = open(os.path.join(self.STORAGE_PATH, filename), 'wb')

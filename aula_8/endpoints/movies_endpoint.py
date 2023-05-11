@@ -54,7 +54,7 @@ def uploadCover(id):
     except FileNotFoundError:
         pass
 
-    _movie_service.save_file(file)
+    _movie_service.save_file(file, id)
     return jsonify(success="Capa do filme foi adicionada com Sucesso!")
 
 def addMovie():
