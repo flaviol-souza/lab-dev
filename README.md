@@ -12,8 +12,10 @@ Para a execução das implementações utilize:
 * Python 3 (3.8.8 versão mínima)
 ```bash
 pip install Flask
+pip install pytest
 pip install psycopg2
 pip install sqlalchemy
+pip install flask-restx
 pip install python-dotenv
 ```
 
@@ -30,11 +32,12 @@ python <YOUR_SCRIPT_PY>
 ```
 
 ## Implementations Lab. Dev.
-* Aula 1: Revisão de HTML, CSS e JS.
-* Aula 2: Hello World Flask e URL
-* Aula 3: Revisão dos Métodos HTTP
+* Aula 1: HTML, CSS and JS review.
+* Aula 2: Hello World Flask and URL
+* Aula 3: HTTP Methods review
 * Aula 4: CRUD Restful
 * Aula 5: Tratamento de erros e status HTTP
 * Aula 6: Upload e Download de arquivos
 * Aula 7: Refactoring service
 * Aula 8: Conexão e Persistências de dados (Postgres)
+* Aula 9: Integration Test
