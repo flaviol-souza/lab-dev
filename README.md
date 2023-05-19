@@ -10,6 +10,7 @@
 Para a execução das implementações utilize: 
 * seu IDE de preferência (sugestão VS Code)
 * Python 3 (3.8.8 versão mínima)
+* Postgres
 ```bash
 pip install Flask
 pip install pytest
@@ -24,6 +25,19 @@ Se for utilizar Docker:
 docker pull postgres:14.2
 docker run -itd -e POSTGRES_USER=root -e POSTGRES_PASSWORD=ifsp -e POSTGRES_DB=<NAME_DB> -p 5432:5432 -v data:/var/lib/postgresql/data --name postgres_aula_8 postgres:14.2
 ```
+
+Para criar um instancia Postgress
+
+1. Crie uma pasta para o armazenamento dos dados do Banco:  C:\workspace\data
+2. Acesse a pasta de binários do Postgres via _command line_ e execute o comando
+```bash
+	cd C:\Program Files\PostgreSQL\15\bin
+    initdb.exe -D <SUA_PASTA_DO_BANCO>
+```
+3. No DBMS de sua preferência, como DBeaver, crie uma a conexão com o banco de dados:
+	* **Database:** postgres
+	* **User:** postgres
+	* **Password:** root
 
 ## Run the project
 Ao executar o script o servidor iniciara e informará a porta na qual a aplicação esta disponível.
