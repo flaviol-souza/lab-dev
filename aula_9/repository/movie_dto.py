@@ -13,4 +13,4 @@ class MovieDTO(Base):
     gender = Column(String, nullable=False)
     runtime = Column(Integer)
     year = Column(Integer)
-    rating = relationship("RatingDTO")#, lazy=True)
+    rating = relationship("RatingDTO")#, cascade="delete" lazy=True)

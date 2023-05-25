@@ -1,18 +1,21 @@
 from endpoints.movie_vo import MovieVO
 from repository.movie_dto import MovieDTO
 from repository.movie_respository import MovieRepository
+from repository.rating_repository import RatingRepository
 import os
 
 class MovieService():
     STORAGE_PATH = 'C:\\Users\\svcj238521\\workspace\\lab-dev\\aula_3\\tmp\\cover'
 
     __movie_repository = MovieRepository()
-    _movies_db = []
+    __rating_repository = RatingRepository()
 
     def delete_movie(self, id):
         movie = self.__movie_repository.find(id)
         if movie is None:
             raise IndexError("Movie not found") 
+        
+        self.__rating_repository.delete_all_by_movie(id)
         self.__movie_repository.delete(movie)
 
     def get_all_movies(self):
