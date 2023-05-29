@@ -5,7 +5,7 @@ from repository.rating_repository import RatingRepository
 import os
 
 class MovieService():
-    STORAGE_PATH = 'C:\\Users\\svcj238521\\workspace\\lab-dev\\aula_3\\tmp\\cover'
+    STORAGE_PATH = 'C:\\workspace\\ifsp\\lab-dev\\aula_9\\tmp\\cover'
 
     __movie_repository = MovieRepository()
     __rating_repository = RatingRepository()
@@ -40,7 +40,7 @@ class MovieService():
                     return os.path.join(path, filename)
         raise FileNotFoundError('File not found')
     
-    def save_file(self, file):
+    def save_file(self, id, file):
         blob = file.read()
         filename = str(id) + '.' + file.filename.split('.')[-1]
         file_image = open(os.path.join(self.STORAGE_PATH, filename), 'wb')

@@ -1,8 +1,10 @@
+import io
 import random
 from app import app
 from flask import json
 
 __CONTENT_TYPE_JSON = 'application/json'
+__CONTENT_TYPE_FORM_DATA = 'multipart/form-data'
 
 def test_first_test():
     assert True
@@ -84,6 +86,19 @@ def test_vote_movie():
     data_new_votes = json.loads(response.data)
 
     assert len(data_votes) + 1 == len(data_new_votes)
+
+def test_upload_cover():
+    response = app.test_client().get('/movies')
+    data = json.loads(response.data.decode('utf-8'))
+    movie_id = data[-1]['id']
+
+    file_name = "C:\workspace\ifsp\lab-dev\cover-movie.jpg"
+    data = {
+        'file': (open(file_name, 'rb'), file_name)
+    }
+    response = app.test_client().post(f'/movies/{movie_id}/cover', content_type=__CONTENT_TYPE_FORM_DATA, data=data)
+
+    assert response.status_code == 200
 
 def test_delete_movie():
     response = app.test_client().get('/movies')
