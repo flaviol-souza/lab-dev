@@ -55,3 +55,4 @@ python <YOUR_SCRIPT_PY>
 * Aula 7: Refactoring service
 * Aula 8: Conexão e Persistências de dados (Postgres)
 * Aula 9: Integration Test
+* Aula 10: Swagger UI
