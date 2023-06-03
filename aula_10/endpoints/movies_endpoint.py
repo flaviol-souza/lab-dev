@@ -27,6 +27,7 @@ class MoviesEndpoint(Resource):
     def get(self):
         return communs._toJsonFromMovies(self._movie_service.get_all_movies())
     
+    @ns.expect(movie_model, validate=True)
     @ns.response(200, 'Success', movie_model)
     @ns.response(400, 'Invalid values attributes')
     def post(self):
@@ -45,7 +46,7 @@ class MovieEndpoint(Resource):
 
     _movie_service = MovieService()
 
-    @ns.doc(description='Get a movie by ID')
+    @ns.doc(params={'id':'id of Movie'}, description='Get a movie by ID')
     @ns.response(200, 'Success', movie_model)
     @ns.response(403, 'Invalid identifier')
     @ns.response(404, 'Movie not found')
@@ -60,7 +61,8 @@ class MovieEndpoint(Resource):
 
         return movie.toJson()
 
-    @ns.doc(description='Update a movie by ID')
+    @ns.doc(params={'id':'id of Movie'}, description='Update a movie by ID')
+    @ns.expect(movie_model, validate=True)
     @ns.response(200, 'Success')
     @ns.response(400, 'Invalid values attributes')
     @ns.response(403, 'Invalid identifier')
@@ -81,7 +83,7 @@ class MovieEndpoint(Resource):
             
         return jsonify(success="Movie successfully updated!")
 
-    @ns.doc(description='Delete a movie by ID')
+    @ns.doc(params={'id':'id of Movie'}, description='Delete a movie by ID')
     @ns.response(200, 'Success')
     @ns.response(404, 'Movie not found')
     def delete(self, id):
@@ -99,7 +101,7 @@ class MovieEndpoint(Resource):
 class MovieCoverEndpoint(Resource):
     _movie_service = MovieService()
 
-    @ns.doc(description='Get a cover of movie by ID')
+    @ns.doc(params={'id':'id of Movie'}, description='Get a cover of movie by ID')
     @ns.response(200, 'Success')
     @ns.response(403, 'Invalid identifier')
     @ns.response(404, 'Movie not found')
@@ -113,7 +115,7 @@ class MovieCoverEndpoint(Resource):
         except IndexError or FileNotFoundError as e:
             abort(404, str(e))
 
-    @ns.doc(description='Save a cover of movie by ID')
+    @ns.doc(params={'id':'id of Movie'}, description='Save a cover of movie by ID')
     @ns.response(200, 'Success')
     @ns.response(400, 'Invalid values attributes')
     @ns.response(403, 'Invalid identifier')

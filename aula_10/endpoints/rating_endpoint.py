@@ -15,7 +15,7 @@ class RatingEndpoint(Resource):
 
     __rating_service = RatingService()
 
-    @ns.doc(description='Get ratings of movie by ID')
+    @ns.doc(params={'movie_id':'id of Movie'}, description='Get ratings of movie by ID')
     @ns.response(200, 'Success')
     @ns.response(403, 'Invalid identifier')
     def get(self, movie_id):
@@ -29,7 +29,7 @@ class RatingEndpoint(Resource):
 
     __rating_service = RatingService()
 
-    @ns.doc(description='Save a vote in movie')
+    @ns.doc(params={'movie_id':'id of Movie'}, description='Save a vote in movie')
     @ns.response(200, 'Success')
     @ns.response(400, 'Invalid values attributes')
     @ns.response(403, 'Invalid identifier')
